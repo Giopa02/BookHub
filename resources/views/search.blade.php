@@ -13,8 +13,8 @@
 		{{-- Barre de recherche --}}
 		<div class="row justify-content-center mb-5">
 			<div class="col-md-8">
-				<form method="GET" action="/search/results" class="d-flex gap-2">
-					<input type="text" class="form-control" name="params" placeholder="Titre, auteur, catégorie..." value="{{ $query ?? '' }}">
+				<form method="GET" action="/search" class="d-flex gap-2">
+					<input type="text" class="form-control" name="params" placeholder="Titre, auteur, catégorie..." value="{{ $params ?? '' }}">
 					<select name="availability" class="form-select" style="max-width: 200px;">
 						<option value="">Tous</option>
 						<option value="available">Disponibles</option>

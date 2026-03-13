@@ -66,9 +66,10 @@
 
 				@auth
 					@if($book->copies->where('status_id', 1)->count() > 0)
-						<a href="/borrowing/{{ $book->copies->where('status_id', 1)->first()->id }}" class="btn btn-dark">
-							Emprunter un exemplaire
-						</a>
+						<form method="POST" action="/borrowing/{{ $book->copies->where('status_id', 1)->first()->id }}">
+							@csrf <!--contre les attaques CRSF -->
+							<button type="submit" class="btn btn-dark">Emprunter un exemplaire</button>
+						</form>
 					@else
 						<button class="btn btn-secondary" disabled>Aucun exemplaire disponible</button>
 					@endif
