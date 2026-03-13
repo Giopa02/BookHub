@@ -5,7 +5,8 @@
 			<div class="col-md-4">
 				<div class="footer-item">
 					<div class="company-brand">
-						<img src="{{ asset('images/main-logo.png') }}" alt="logo" class="footer-logo">
+						<img src="{{ asset('images/main-logo.png') }}" alt="logo" class="footer-logo" style="max-height: 150px; width: auto;">
+						<!--<a href="/"><img src="{{ asset('images/main-logo.png') }}" alt="BookHub" style="max-height: 60px; width: auto;"></a>-->
 						<p>BookHub - Votre bibliothèque en ligne. Empruntez, découvrez et explorez des milliers de livres.</p>
 					</div>
 				</div>

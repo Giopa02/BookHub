@@ -57,7 +57,7 @@
 
 				<div class="col-md-2">
 					<div class="main-logo">
-						<a href="/"><img src="{{ asset('images/main-logo.png') }}" alt="BookHub"></a>
+						<a href="/"><img src="{{ asset('images/main-logo.png') }}" alt="BookHub" style="max-height: 170px; width: auto;"></a>
 					</div>
 				</div>
 
