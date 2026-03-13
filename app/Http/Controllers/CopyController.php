@@ -19,21 +19,39 @@ class CopyController extends Controller
     }
 
     // BO : liste de tous les exemplaires
-    public function copies()
-    {
-        if (Auth::user()->role_id !== 1) {
-            abort(403);
-        }
-
-        $copies = Copy::with('book.author', 'status')->get();
-
-        return view('bo.copies', compact('copies'));
+    public function copies(Request $request)
+{
+    if (!Auth::check() || Auth::user()->role_id !== 1) {
+        abort(403);
     }
+
+    $query = Copy::with('book.author', 'status');
+
+    if ($request->input('search')) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('book', function ($q2) use ($search) {
+                $q2->where('title', 'LIKE', "%{$search}%")
+                    ->orWhereHas('author', function ($q3) use ($search) {
+                        $q3->where('name', 'LIKE', "%{$search}%");
+                    });
+            })
+            ->orWhereHas('status', function ($q2) use ($search) {
+                $q2->where('status', 'LIKE', "%{$search}%");
+            })
+            ->orWhere('etat', 'LIKE', "%{$search}%");
+        });
+    }
+
+    $copies = $query->paginate(20);
+
+    return view('bo.copies', compact('copies'));
+}
 
     // BO : voir un exemplaire
     public function show($id)
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 
@@ -46,7 +64,7 @@ class CopyController extends Controller
     // BO : formulaire d'ajout
     public function add()
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 
@@ -59,7 +77,7 @@ class CopyController extends Controller
     // BO : traiter l'ajout
     public function store(Request $request)
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 
@@ -67,12 +85,14 @@ class CopyController extends Controller
             'book_id' => 'required|exists:books,id',
             'commission_date' => 'required|date',
             'status_id' => 'required|exists:statuses,id',
+            'etat' => 'required|in:excellent,bon,moyen',
         ]);
 
         Copy::create([
             'book_id' => $request->book_id,
             'commission_date' => $request->commission_date,
             'status_id' => $request->status_id,
+            'etat' => $request->etat,
         ]);
 
         return redirect('/bo/copies')->with('success', 'Exemplaire ajouté avec succès.');
@@ -81,7 +101,7 @@ class CopyController extends Controller
     // BO : formulaire de modification
     public function edit($id)
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 
@@ -95,7 +115,7 @@ class CopyController extends Controller
     // BO : traiter la modification
     public function update(Request $request, $id)
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 
@@ -103,6 +123,7 @@ class CopyController extends Controller
             'book_id' => 'required|exists:books,id',
             'commission_date' => 'required|date',
             'status_id' => 'required|exists:statuses,id',
+            'etat' => 'required|in:excellent,bon,moyen',
         ]);
 
         $copy = Copy::findOrFail($id);
@@ -110,6 +131,7 @@ class CopyController extends Controller
             'book_id' => $request->book_id,
             'commission_date' => $request->commission_date,
             'status_id' => $request->status_id,
+            'etat' => $request->etat,
         ]);
 
         return redirect('/bo/copies')->with('success', 'Exemplaire modifié avec succès.');
@@ -118,7 +140,7 @@ class CopyController extends Controller
     // BO : supprimer un exemplaire
     public function delete($id)
     {
-        if (Auth::user()->role_id !== 1) {
+        if (!Auth::check() || Auth::user()->role_id !== 1) {
             abort(403);
         }
 

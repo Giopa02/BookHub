@@ -57,6 +57,15 @@
 							</select>
 						</div>
 
+						<div class="mb-3">
+							<label for="etat" class="form-label">État physique</label>
+							<select class="form-select" id="etat" name="etat" required>
+								<option value="excellent" {{ (old('etat', $copy->etat ?? '') === 'excellent') ? 'selected' : '' }}>Excellent</option>
+								<option value="bon" {{ (old('etat', $copy->etat ?? 'bon') === 'bon') ? 'selected' : '' }}>Bon</option>
+								<option value="moyen" {{ (old('etat', $copy->etat ?? '') === 'moyen') ? 'selected' : '' }}>Moyen</option>
+							</select>
+						</div>
+
 						<div class="d-flex gap-2">
 							<button type="submit" class="btn btn-dark">{{ isset($copy) ? 'Mettre à jour' : 'Ajouter' }}</button>
 							<a href="/bo/copies" class="btn btn-outline-secondary">Annuler</a>

@@ -53,7 +53,10 @@
 			</div>
 			@endforelse
 		</div>
+
+		<div class="d-flex justify-content-center mt-4">
+			{{ $books->links() }}
+		</div>
 	</div>
 </section>
-
 @endsection

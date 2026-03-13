@@ -41,6 +41,7 @@
 							<th>#</th>
 							<th>Mise en service</th>
 							<th>Statut</th>
+							<th>État</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,10 +56,19 @@
 									<span class="badge bg-warning">{{ $copy->status->status }}</span>
 								@endif
 							</td>
+							<td>
+								@if($copy->etat === 'excellent')
+									<span class="badge bg-success">{{ $copy->etat }}</span>
+								@elseif($copy->etat === 'bon')
+									<span class="badge bg-info">{{ $copy->etat }}</span>
+								@else
+									<span class="badge bg-secondary">{{ $copy->etat }}</span>
+								@endif
+							</td>
 						</tr>
 						@empty
 						<tr>
-							<td colspan="3">Aucun exemplaire enregistré.</td>
+							<td colspan="4">Aucun exemplaire enregistré.</td>
 						</tr>
 						@endforelse
 					</tbody>

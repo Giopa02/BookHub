@@ -16,6 +16,7 @@
 						<h3 class="mt-3">{{ $user->prenom }} {{ $user->name }}</h3>
 						<p class="text-muted">{{ $user->email }}</p>
 						<p><span class="badge bg-dark">{{ $user->role->role ?? 'Usager' }}</span></p>
+						<a href="/change-password" class="btn btn-outline-dark btn-sm mt-2">Changer le mot de passe</a>
 					</div>
 				</div>
 			</div>

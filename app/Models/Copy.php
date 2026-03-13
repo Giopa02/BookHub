@@ -10,6 +10,7 @@ class Copy extends Model
         'commission_date',
         'book_id',
         'status_id',
+        'etat',
     ];
 
     public function book()

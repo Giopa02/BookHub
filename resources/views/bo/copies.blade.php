@@ -11,15 +11,22 @@
 			<a href="/bo/exemplar/add" class="btn btn-dark">+ Ajouter un exemplaire</a>
 		</div>
 
-		<div class="row mb-4">
-			<div class="col-md-6">
-				<input type="text" id="searchCopy" class="form-control" placeholder="Rechercher un exemplaire (titre, auteur, mise en service, statut)..." onkeyup="filterUsers()">
-			</div>
-		</div>
-
 		@if(session('success'))
 			<div class="alert alert-success">{{ session('success') }}</div>
 		@endif
+
+
+		<div class="row mb-4">
+			<div class="col-md-6">
+				<form method="GET" action="/bo/copies" class="d-flex gap-2">
+					<input type="text" name="search" class="form-control" placeholder="Rechercher (livre, auteur, statut, état)..." value="{{ request('search') }}">
+					<button type="submit" class="btn btn-dark">Rechercher</button>
+					@if(request('search'))
+						<a href="/bo/copies" class="btn btn-outline-secondary">Effacer</a>
+					@endif
+				</form>
+			</div>
+		</div>
 
 		<table class="table table-striped">
 			<thead>
@@ -29,13 +36,13 @@
 					<th>Auteur</th>
 					<th>Mise en service</th>
 					<th>Statut</th>
+					<th>État</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				
-				@forelse($copies ?? [] as $copy)
 				@php /** @var \App\Models\Copy $copy */ @endphp <!-- evite avertissements de l'IDE "Trying to get property of non-object of type void" -->
+				@forelse($copies ?? [] as $copy)
 				<tr>
 					<td>{{ $copy->id }}</td>
 					<td>{{ $copy->book->title ?? 'N/A' }}</td>
@@ -46,6 +53,15 @@
 							<span class="badge bg-success">{{ $copy->status->status }}</span>
 						@else
 							<span class="badge bg-warning">{{ $copy->status->status }}</span>
+						@endif
+					</td>
+					<td>
+						@if($copy->etat === 'excellent')
+							<span class="badge bg-success">{{ $copy->etat }}</span>
+						@elseif($copy->etat === 'bon')
+							<span class="badge bg-info">{{ $copy->etat }}</span>
+						@else
+							<span class="badge bg-secondary">{{ $copy->etat }}</span>
 						@endif
 					</td>
 					<td>
@@ -60,25 +76,18 @@
 				</tr>
 				@empty
 				<tr>
-					<td colspan="6">Aucun exemplaire enregistré.</td>
+					<td colspan="7">Aucun exemplaire enregistré.</td>
 				</tr>
 				@endforelse
 			</tbody>
 		</table>
+
+		<div class="d-flex justify-content-center mt-4">
+			{{ $copies->links() }}
+		</div>
 	</div>
 </section>
 
-<!-- filtre qui permet de chercher grace au colonnes-->
-<script>
-function filterUsers() {
-    let input = document.getElementById('searchCopy').value.toLowerCase();
-    let rows = document.querySelectorAll('tbody tr');
 
-    rows.forEach(row => {
-        let text = row.textContent.toLowerCase();
-        row.style.display = text.includes(input) ? '' : 'none';
-    });
-}
-</script>
 
 @endsection
