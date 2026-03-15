@@ -1,7 +1,23 @@
+{{-- =========================================================================
+	footer.blade.php — Pied de page présent sur toutes les pages
+	=========================================================================
+	Ce fichier est inclus dans template.blade.php via @include('footer').
+	Il contient :
+	- Le logo et la description de BookHub
+	- Les liens de navigation rapide
+	- Les liens "Mon compte"
+	- Les liens d'aide
+	- La barre de copyright avec les réseaux sociaux
+--}}
+
+{{-- =========================================================================
+	FOOTER PRINCIPAL : colonnes avec les liens et infos
+========================================================================== --}}
 <footer id="footer">
 	<div class="container">
 		<div class="row">
 
+            {{-- Colonne 1 : Logo et description --}}
 			<div class="col-md-4">
 				<div class="footer-item">
 					<div class="company-brand">
@@ -12,6 +28,7 @@
 				</div>
 			</div>
 
+            {{-- Colonne 2 : Liens de découverte (Accueil, Catalogue) --}}
 			<div class="col-md-2">
 				<div class="footer-menu">
 					<h5>Découvrir</h5>
@@ -22,6 +39,7 @@
 				</div>
 			</div>
 
+            {{-- Colonne 3 : Liens vers l'espace compte utilisateur --}}
 			<div class="col-md-2">
 				<div class="footer-menu">
 					<h5>Mon compte</h5>
@@ -33,6 +51,7 @@
 				</div>
 			</div>
 
+            {{-- Colonne 4 : Liens d'aide (pour l'instant des liens vides "#") --}}
 			<div class="col-md-2">
 				<div class="footer-menu">
 					<h5>Aide</h5>
@@ -47,15 +66,23 @@
 	</div>
 </footer>
 
+{{-- =========================================================================
+	BARRE DE COPYRIGHT (en dessous du footer)
+========================================================================== --}}
 <div id="footer-bottom">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="copyright">
 					<div class="row">
+
+                        {{-- Texte de copyright avec l'année générée dynamiquement --}}
 						<div class="col-md-6">
 							<p>&copy; {{ date('Y') }} BookHub. Tous droits réservés.</p>
+                            {{-- date('Y') affiche l'année actuelle automatiquement (ex: 2026) --}}
 						</div>
+
+                        {{-- Icônes réseaux sociaux en bas à droite --}}
 						<div class="col-md-6">
 							<div class="social-links align-right">
 								<ul>
@@ -65,6 +92,7 @@
 								</ul>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
