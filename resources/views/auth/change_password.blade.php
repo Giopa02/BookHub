@@ -62,7 +62,7 @@
 								<input type="password" class="form-control" id="password" name="password" required>
                                 {{-- Aide à l'utilisateur pour comprendre les règles --}}
 								<small class="text-muted">
-									Minimum 8 caractères, une majuscule, un chiffre et un caractère spécial (@$!%*?&#).
+									Minimum 12 caractères, une majuscule, un chiffre et un caractère spécial (@$!%*?&#).
 								</small>
 							</div>
 

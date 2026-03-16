@@ -36,19 +36,19 @@ class UserController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',       // au moins 8 caractères
+                'min:12',       // au moins 12 caractères
                 'confirmed',   // Le champ "confirmation" doit correspondre
                 'regex:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#]).+$/', // au moins une majuscule, un chiffre et caractère spécial
             ],
         ], [
             // messages d'erreur personnalisés en français
-            'password.min'       => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.min'       => 'Le mot de passe doit contenir au moins 12 caractères.',
             'password.regex'     => 'Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial (@$!%*?&#).',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ]);
 
         // On crée le nouvel utilisateur en base de données
-        // Hash::make() chiffre le mot de passe 
+        // Hash::make() chiffre le mot de passe
         $user = User::create([
             'name'               => $request->name,
             'prenom'             => $request->prenom,
@@ -268,12 +268,12 @@ class UserController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',
+                'min:12',
                 'confirmed',
                 'regex:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#]).+$/',
             ],
         ], [
-            'password.min'       => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.min'       => 'Le mot de passe doit contenir au moins 12 caractères.',
             'password.regex'     => 'Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial (@$!%*?&#).',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ]);
