@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
-php artisan migrate:fresh --force --seed
+php artisan migrate --force
 php-fpm -D
 nginx -g 'daemon off;'
