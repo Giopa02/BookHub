@@ -11,8 +11,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN composer install --optimize-autoloader --no-interaction
+
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 RUN echo 'server { \
     listen 80; \
