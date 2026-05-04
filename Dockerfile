@@ -11,16 +11,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-RUN composer install --optimize-autoloader --no-interaction
+RUN composer install --optimize-autoloader --no-interaction \
+    && chown -R www-data:www-data storage bootstrap/cache
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-RUN echo 'server { \
-    listen 80; \
-    root /var/www/html/public; \
-    index index.php; \
-    location / { try_files $uri $uri/ /index.php?$query_string; } \
-    location ~ \.php$ { fastcgi_pass 127.0.0.1:9000; fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name; include fastcgi_params; } \
+RUN echo 'server {\
+    listen 80;\
+    root /var/www/html/public;\
+    index index.php index.html;\
+    location / { try_files $uri $uri/ /index.php?$query_string; }\
+    location ~ \.php$ {\
+        fastcgi_pass 127.0.0.1:9000;\
+        fastcgi_index index.php;\
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;\
+        include fastcgi_params;\
+    }\
 }' > /etc/nginx/sites-available/default
 
 COPY docker-start.sh /docker-start.sh
