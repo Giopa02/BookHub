@@ -36,7 +36,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}"> {{-- Normalise le style par défaut des navigateurs --}}
 	<link rel="stylesheet" type="text/css" href="{{ asset('icomoon/icomoon.css') }}"> {{-- Icônes (user, search, flèches...) --}}
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/vendor.css') }}"> {{-- Styles des plugins tiers --}}
-	<link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}"> {{-- Style principal du thème BookHub --}}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> {{-- Style principal du thème BookHub --}}
 </head>
 
 {{-- data-bs-spy="scroll" : Bootstrap suit le défilement pour activer le bon élément de menu --}}

@@ -2442,3 +2442,204 @@ footer#footer {
     width: 100%;
   }
 }
+
+/* ---- Top bar links ---- */
+.top-link {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.2s;
+}
+.top-link:hover {
+  color: var(--accent-color);
+}
+
+/* ---- Navbar principale ---- */
+#header {
+  padding: 0;
+}
+#header .navbar {
+  min-height: 70px;
+}
+#header .navbar-nav .nav-link {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-size: 0.85em;
+  color: var(--dark-text-color);
+  padding: 0.5rem 1.2rem;
+  transition: color 0.2s;
+}
+#header .navbar-nav .nav-link:hover,
+#header .navbar-nav .nav-link.active {
+  color: var(--accent-color);
+}
+#header .dropdown-menu {
+  border-radius: 0;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  min-width: 180px;
+}
+#header .dropdown-item {
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.6rem 1.2rem;
+  color: var(--dark-text-color);
+}
+#header .dropdown-item:hover {
+  color: var(--accent-color);
+  background: transparent;
+}
+
+/* ---- Footer ---- */
+footer#footer {
+  margin-top: 80px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border: none;
+}
+.footer-main {
+  background-color: var(--dark-color);
+  color: #aaa;
+}
+.footer-main p {
+  color: #aaa;
+  font-size: 0.9em;
+  line-height: 1.8;
+}
+.footer-logo {
+  max-height: 90px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.footer-heading {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
+}
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: var(--accent-color);
+}
+#footer-bottom {
+  background-color: #1e1e1e;
+  color: #666;
+  font-size: 0.85em;
+  border-top: 1px solid #333;
+}
+#footer-bottom p {
+  color: #666;
+  margin: 0;
+}
+#footer-bottom .social-links li {
+  padding-right: 15px;
+  margin-bottom: 0;
+}
+#footer-bottom .social-links a {
+  color: #666;
+  transition: color 0.2s;
+}
+#footer-bottom .social-links a:hover {
+  color: var(--accent-color);
+}
+
+/* ---- Logo sizes ---- */
+.header-logo {
+  height: 100px !important;
+  width: auto !important;
+}
+#header .navbar {
+  min-height: 110px;
+}
+.footer-logo {
+  height: 80px !important;
+  width: auto !important;
+}
+
+/* ---- Hauteur des images de livres (évite que la figure s'écrase à 0) ---- */
+.product-style {
+  min-height: 260px;
+}
+.product-style img.product-item {
+  height: 260px;
+  object-fit: contain;
+}
+
+/* ---- Lien "Voir tout le catalogue" ---- */
+.btn-wrap a.btn-accent-arrow {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background-color: var(--dark-color);
+  color: #fff;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.btn-wrap a.btn-accent-arrow:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+/* ---- Bouton "Voir détails" sur les cartes livres ---- */
+.product-style a.add-to-cart {
+  position: absolute;
+  display: block;
+  background: #111;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  line-height: 3;
+  bottom: -65px;
+  left: 0;
+  z-index: 9;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  transition: 0.3s ease-out;
+}
+.product-style:hover a.add-to-cart {
+  bottom: 0;
+}
+
+/* ---- Badges catégories dans le catalogue ---- */
+.badge.bg-secondary {
+  background-color: var(--dark-color) !important;
+  color: #fff !important;
+  font-weight: 500;
+}
+
+/* ---- Tableaux Back-Office ---- */
+.table {
+  border: 1px solid #dee2e6;
+}
+.table th,
+.table td {
+  padding: 0.9rem 1.2rem;
+  vertical-align: middle;
+  border: 1px solid #dee2e6;
+}
+.table thead th {
+  text-align: center;
+  background-color: #f8f8f6;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-size: 0.85em;
+  text-transform: uppercase;
+}

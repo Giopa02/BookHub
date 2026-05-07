@@ -29,7 +29,7 @@
 		{{-- Barre de recherche --}}
 		<div class="row justify-content-center mb-5">
 			<div class="col-md-8">
-				<form method="GET" action="/search" class="d-flex gap-2">
+				<form method="GET" action="/search" class="d-flex align-items-center gap-2">
                     {{-- Champ texte : l'utilisateur saisit son mot-clé --}}
                     {{-- value="{{ $params ?? '' }}" : pré-remplit avec la recherche actuelle --}}
 					<input type="text" class="form-control" name="params" placeholder="Titre, auteur, catégorie..." value="{{ $params ?? '' }}">

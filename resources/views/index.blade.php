@@ -25,11 +25,6 @@
 		<div class="row">
 			<div class="col-md-12">
 
-                {{-- Bouton "précédent" du slider --}}
-				<button class="prev slick-arrow">
-					<i class="icon icon-arrow-left"></i>
-				</button>
-
 				<div class="main-slider pattern-overlay">
 
                     {{-- Diapositive 1 : message de bienvenue --}}
@@ -58,11 +53,6 @@
 
 				</div>
 
-                {{-- Bouton "suivant" du slider --}}
-				<button class="next slick-arrow">
-					<i class="icon icon-arrow-right"></i>
-				</button>
-
 			</div>
 		</div>
 	</div>
@@ -84,7 +74,7 @@
 					<h2 class="section-title">Livres à la une</h2>
 				</div>
 
-				<div class="product-list" data-aos="fade-up">
+				<div class="product-list">
 					<div class="row">
 
                         {{-- Boucle dynamique sur les livres --}}
