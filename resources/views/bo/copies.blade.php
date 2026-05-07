@@ -59,13 +59,13 @@
             {{-- table-striped = les lignes alternent entre blanc et gris clair --}}
 			<thead>
 				<tr>
-					<th>ID</th>              
-					<th>Livre</th>         
-					<th>Auteur</th>        
+					<th>ID</th>
+					<th>Livre</th>
+					<th>Auteur</th>
 					<th>Mise en service</th>
-					<th>Statut</th>       
-					<th>État</th>           
-					<th>Actions</th>        
+					<th>Statut</th>
+					<th>État</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -77,24 +77,33 @@
 					<td>{{ $copy->book->author->name ?? 'N/A' }}</td>
 					<td>{{ \Carbon\Carbon::parse($copy->commission_date)->format('d/m/Y') }}</td>
 
-                    {{-- Statut avec badge coloré selon la valeur --}}
+                    {{-- Statut avec badge coloré + ratio dispo/emprunté pour le livre --}}
 					<td>
-						@if($copy->status->status === 'disponible')
+						<!-- @if($copy->status->status === 'disponible')
 							<span class="badge bg-success">{{ $copy->status->status }}</span>
 						@else
 							<span class="badge bg-warning">{{ $copy->status->status }}</span>
 						@endif
+						<br> -->
+						<small class="text-muted" title="disponibles / empruntés">
+							disponible {{ $bookStatsBorrow[$copy->book_id]->available_count ?? 0 }} / emprunté {{ $bookStats[$copy->book_id]->borrowed_count ?? 0 }}
+						</small>
 					</td>
+
+					
 
                     {{-- État physique avec badge coloré selon la valeur --}}
 					<td>
-						@if($copy->etat === 'excellent')
+						<!-- @if($copy->etat === 'excellent')
 							<span class="badge bg-success">{{ $copy->etat }}</span>
 						@elseif($copy->etat === 'bon')
 							<span class="badge bg-info">{{ $copy->etat }}</span>
 						@else
 							<span class="badge bg-secondary">{{ $copy->etat }}</span>
-						@endif
+						@endif -->
+						<small class="text-muted" title="disponibles / empruntés">
+							bon {{ $bookStatsState[$copy->book_id]->good_count ?? 0 }} / moyen {{ $bookStatsState[$copy->book_id]->medium_count ?? 0 }} / excellent {{ $bookStatsState[$copy->book_id]->excellent_count ?? 0 }}
+						</small>
 					</td>
 
                     {{-- Boutons d'action pour chaque exemplaire --}}
@@ -117,7 +126,6 @@
 					</td>
 				</tr>
 				@empty
-                {{-- Si aucun exemplaire trouvé (liste vide ou recherche sans résultat) --}}
 				<tr>
 					<td colspan="7">Aucun exemplaire enregistré.</td>
 				</tr>
@@ -125,7 +133,7 @@
 			</tbody>
 		</table>
 
-        {{-- Boutons de pagination générés automatiquement par Laravel --}}
+        {{-- Boutons de pagination --}}
 		<div class="d-flex justify-content-center mt-4">
 			{{ $copies->links() }}
 		</div>

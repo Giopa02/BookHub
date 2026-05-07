@@ -65,6 +65,13 @@
 									</option>
 								@endforeach
 							</select>
+
+							{{-- Compteur dynamique selon le livre --}}
+							<!-- <div id="book-stats" class="mt-2 text-muted small" style="display:none;">
+								Disponibles : <strong id="stat-available">0</strong>
+								&nbsp;|&nbsp;
+								Empruntés : <strong id="stat-borrowed">0</strong>
+							</div> -->
 						</div>
 
                         {{-- ---------------------------------------------------------------

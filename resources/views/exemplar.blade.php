@@ -66,10 +66,10 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>#</th>              
-							<th>Mise en service</th> 
-							<th>Statut</th>          
-							<th>État</th>      
+							<th>#</th>
+							<th>Mise en service</th>
+							<th>Statut</th>
+							<th>État</th>
 						</tr>
 					</thead>
 					<tbody>

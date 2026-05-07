@@ -1,22 +1,17 @@
 <?php
 
-// Ce Controller gère tout ce qui concerne les utilisateurs 
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;  // connexion/déconnexion de l'utilisateur
-use Illuminate\Support\Facades\Hash;  // chiffrer (hacher) les mots de passe
-use Illuminate\Support\Facades\Mail; // envoyer des emails
-use App\Models\User;                  //  modèle représentant un utilisateur
-use App\Models\PasswordHistory;       //  modèle qui stocke l'historique des mots de passe
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+use App\Models\PasswordHistory;
 
 class UserController extends Controller
 {
-    // -----------------------------------------------------------------------
-    // Affiche la page d'inscription
-    // URL : GET /subscription
-    // -----------------------------------------------------------------------
     public function subscription()
     {
         // affiche formulaire d'inscription
@@ -28,67 +23,58 @@ class UserController extends Controller
     // -----------------------------------------------------------------------
     public function register(Request $request)
     {
-        // On valide les données envoyées par le formulaire. Si une règle échoue, Laravel renvoie automatiquement l'utilisateur en arrière avec les erreurs
         $request->validate([
-            'name'   => 'required|string|max:255',  // Nom obligatoire, texte, max 255 caractères
-            'prenom' => 'required|string|max:255',  // Prénom obligatoire
-            'email'  => 'required|email|unique:users,email', // Email valide et non encore utilisé
+            'name'   => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email'  => 'required|email|unique:users,email',
             'password' => [
                 'required',
                 'string',
-                'min:12',       // au moins 12 caractères
-                'confirmed',   // Le champ "confirmation" doit correspondre
-                'regex:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#]).+$/', // au moins une majuscule, un chiffre et caractère spécial
+                'min:12',
+                'confirmed',
+                'regex:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&#]).+$/',
             ],
         ], [
-            // messages d'erreur personnalisés en français
+            
             'password.min'       => 'Le mot de passe doit contenir au moins 12 caractères.',
             'password.regex'     => 'Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial (@$!%*?&#).',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ]);
 
-        // On crée le nouvel utilisateur en base de données
+        // nouvel utilisateur en base de données
         // Hash::make() chiffre le mot de passe
         $user = User::create([
             'name'               => $request->name,
             'prenom'             => $request->prenom,
             'email'              => $request->email,
-            'password'           => Hash::make($request->password), // mdp chiffré
-            'role_id'            => 2,    // 2 = rôle "usager" (par défaut, pas bibliothécaire)
-            'password_changed_at'=> now(), // date du premier mot de passe
+            'password'           => Hash::make($request->password),
+            'role_id'            => 2,    // 2 = rôle "usager"
+            'password_changed_at'=> now(),
         ]);
 
-        // auvegarde le premier mot de passe dans l'historique
-        // permet plus tard de vérifier qu'on ne réutilise pas un ancien mot de passe
+        //vérifier qu'on ne réutilise pas un ancien mot de passe
         PasswordHistory::create([
             'user_id'  => $user->id,
             'password' => Hash::make($request->password),
         ]);
 
-        // connecte automatiquement l'utilisateur après l'inscription
         Auth::login($user);
 
         // redirige vers la page d'accueil
         return redirect('/');
     }
 
-    // -----------------------------------------------------------------------
-    // la page de connexion
-    // URL : GET /connect
-    // -----------------------------------------------------------------------
     public function connect()
     {
         return view('auth.connect');
     }
 
     // -----------------------------------------------------------------------
-    // Traite le formulaire de connexion (étape 1 sur 2)
     // Vérifie email + mot de passe, puis envoie un code 2FA par email
     // URL : POST /connect
     // -----------------------------------------------------------------------
     public function login(Request $request)
     {
-        // validation basique : email et mot de passe obligatoires
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required|string',
@@ -99,7 +85,6 @@ class UserController extends Controller
             $user = Auth::user();
 
             // générer et envoyer le code 2FA
-            // un code aléatoires est créé et stocké en base
             $code = $user->generateTwoFactorCode();
 
             // envoyer le code par email à l'utilisateur

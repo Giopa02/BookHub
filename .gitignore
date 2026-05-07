@@ -3,8 +3,11 @@
 .env
 .env.backup
 .env.production
+.env.prod
+*.pem
 .phpactor.json
 .phpunit.result.cache
+.docker_composer.yml
 /.fleet
 /.idea
 /.nova
