@@ -24,7 +24,21 @@
 
                 {{-- Titre de la page : différent selon ajout ou modification --}}
                 {{-- isset($copy) = true si la variable $copy existe (modification), false sinon (ajout) --}}
-				<h2>{{ isset($copy) ? 'Modifier l\'exemplaire #' . $copy->id : 'Ajouter un exemplaire' }}</h2>
+				<h2>{{ isset($copy) ? 'Modifier un exemplaire' : 'Ajouter un exemplaire' }}</h2>
+
+                {{-- Sélecteur d'exemplaire : visible uniquement en mode modification --}}
+                @isset($copy)
+                <div class="mb-3 mt-3">
+                    <label class="form-label fw-semibold">Exemplaire à modifier</label>
+                    <select class="form-select" onchange="window.location='/bo/exemplar/update/' + this.value">
+                        @foreach($bookCopies as $c)
+                            <option value="{{ $c->id }}" {{ $c->id === $copy->id ? 'selected' : '' }}>
+                                #{{ $c->id }} — {{ $c->status->status ?? '?' }} — mis en service le {{ \Carbon\Carbon::parse($c->commission_date)->format('d/m/Y') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                @endisset
 
                 {{-- Affichage des erreurs de validation --}}
 				@if($errors->any())

@@ -171,11 +171,17 @@ class CopyController extends Controller
             abort(403);
         }
 
-        $copy = Copy::findOrFail($id);
+        $copy = Copy::with('status')->findOrFail($id);
 
         // pour les menus déroulants du formulaire
         $books    = Book::with('author')->get();
         $statuses = Status::all();
+
+        // tous les exemplaires du même livre (pour le sélecteur)
+        $bookCopies = Copy::with('status')
+            ->where('book_id', $copy->book_id)
+            ->orderBy('id')
+            ->get();
 
         // compteur disponible/emprunté
         $bookStatsBorrow = Book::withCount([
@@ -183,7 +189,7 @@ class CopyController extends Controller
             'copies as borrowed_count'  => fn($q) => $q->where('status_id', 2),
         ])->get()->keyBy('id');
 
-        return view('bo.exemplar_form', compact('copy', 'books', 'statuses', 'bookStatsBorrow'));
+        return view('bo.exemplar_form', compact('copy', 'books', 'statuses', 'bookStatsBorrow', 'bookCopies'));
     }
 
     // -----------------------------------------------------------------------
