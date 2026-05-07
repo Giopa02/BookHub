@@ -24,7 +24,7 @@
 
                 {{-- Titre de la page : différent selon ajout ou modification --}}
                 {{-- isset($copy) = true si la variable $copy existe (modification), false sinon (ajout) --}}
-				<h2>{{ isset($copy) ? 'Modifier un exemplaire' : 'Ajouter un exemplaire' }}</h2>
+				<h2>{{ isset($copy) ? 'Modifier l\'exemplaire #' . $copy->id : 'Ajouter un exemplaire' }}</h2>
 
                 {{-- Affichage des erreurs de validation --}}
 				@if($errors->any())
