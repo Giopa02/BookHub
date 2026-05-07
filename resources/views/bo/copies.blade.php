@@ -86,7 +86,7 @@
 						@endif
 						<br> -->
 						<small class="text-muted" title="disponibles / empruntés">
-							disponible {{ $bookStatsBorrow[$copy->book_id]->available_count ?? 0 }} / emprunté {{ $bookStats[$copy->book_id]->borrowed_count ?? 0 }}
+							disponible {{ $bookStatsBorrow[$copy->book_id]->available_count ?? 0 }} / emprunté {{ $bookStatsBorrow[$copy->book_id]->borrowed_count ?? 0 }}
 						</small>
 					</td>
 
